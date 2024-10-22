@@ -12,8 +12,13 @@ class SearchFoodValidator
             throw new InvalidArgumentException('Type must be either "fruit" or "vegetable".');
         }
 
-        if (isset($filters['quantityInGrams']) && (!is_int((int)$filters['quantityInGrams']) || $filters['quantityInGrams'] < 0)) {
-            throw new InvalidArgumentException('Quantity in grams must be a non-negative integer.');
+        if (isset($filters['quantityInGrams'])) {
+            if (is_string($filters['quantityInGrams']) && is_numeric($filters['quantityInGrams'])) {
+                $filters['quantityInGrams'] = (int)$filters['quantityInGrams'];
+            }
+            if (!is_int($filters['quantityInGrams']) || $filters['quantityInGrams'] < 0) {
+                throw new InvalidArgumentException('Quantity in grams must be a non-negative integer.');
+            }
         }
 
         if (isset($filters['name']) && (!is_string($filters['name']) || empty($filters['name']))) {

@@ -22,8 +22,8 @@ class SearchFoodValidatorTest extends TestCase
             'name' => 'Apple',
         ];
 
-        $this->validator->validate($filters); // Should not throw an exception
-        $this->assertTrue(true); // If no exception, the test passes
+        $this->validator->validate($filters);
+        $this->assertTrue(true);
     }
 
     public function testInvalidTypeThrowsException(): void
