@@ -3,7 +3,6 @@
 namespace App\Application\Food;
 
 use App\Domain\Food\FoodRepositoryInterface;
-use App\Domain\Misc\Enum\Unit;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
