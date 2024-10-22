@@ -19,6 +19,14 @@ doctrine:
         auto_mapping: true
         controller_resolver:
             auto_mapping: false
+        mappings:
+            Food:
+                is_bundle: false
+                type: attribute
+                dir: '%kernel.project_dir%/src/Domain/Food'
+                prefix: 'App\Domain\Food'
+                alias: Food
+                mapping: true
 
 when@test:
     doctrine:
