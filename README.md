@@ -1,59 +1,78 @@
-# 🍎🥕 Fruits and Vegetables
 
-## 🎯 Goal
-We want to build a service which will take a `request.json` and:
-* Process the file and create two separate collections for `Fruits` and `Vegetables`
-* Each collection has methods like `add()`, `remove()`, `list()`;
-* Units have to be stored as grams;
-* Store the collections in a storage engine of your choice. (e.g. Database, In-memory)
-* Provide an API endpoint to query the collections. As a bonus, this endpoint can accept filters to be applied to the returning collection.
-* Provide another API endpoint to add new items to the collections (i.e., your storage engine).
-* As a bonus you might:
-  * consider giving option to decide which units are returned (kilograms/grams);
-  * how to implement `search()` method collections;
-  * use latest version of Symfony's to embbed your logic 
+<h1 align="center">
+🍎🥕 Fruits and Vegetables
+</h1>
 
-### ✔️ How can I check if my code is working?
-You have two ways of moving on:
-* You call the Service from PHPUnit test like it's done in dummy test (just run `bin/phpunit` from the console)
+<p align="center">
+    <img src="https://img.shields.io/badge/PHP-8.2-darkred" alt="PHP 8.2"/>
+    <img src="https://img.shields.io/badge/Symfony-7.1-orange" alt="Symfony 7.1"/>
+</p>
 
-or
 
-* You create a Controller which will be calling the service with a json payload
 
-## 💡 Hints before you start working on it
-* Keep KISS, DRY, YAGNI, SOLID principles in mind
-* Timebox your work - we expect that you would spend between 3 and 4 hours.
-* Your code should be tested
 
-## When you are finished
-* Please upload your code to a public git repository (i.e. GitHub, Gitlab)
+## 🚂 Running the project
 
-## 🐳 Docker image
-Optional. Just here if you want to run it isolated.
+1. Build docker image
+   ```bash
+   docker build -t surfer-market .
+   ```
+2. Run and expose the container's port 80 in hots 8000
+   ```bash
+   docker run -d -p 8000:80 -v $(pwd):/app surfer-market
+   ```
+3. Run doctrine migrations to have SQLITE db generated. Can be done inside the container or from host machine
+   ```bash
+   php bin/console  doctrine:migrations:migrate
+   ```
 
-### 📥 Pulling image
-```bash
-docker pull tturkowski/fruits-and-vegetables
+
+
+## 👣 Routing
+
+This solution is implementing 3 routes:
+
+- `POST /food` to create food elements from the `request.json` provided
+
+- `GET /food` to find food in the storage
+
+   Example: http://localhost:8000/food
+
+- `GET /food/search` that search for items accepting arguments 'type', 'name' and 'quantityInGrams'
+   
+   Example: http://localhost:8000/food/search?quantityInGrams=90000
+
+   Expected Result:
+
+   ```json
+   [
+    {
+        "id": 3,
+        "name": "Melons",
+        "grams": 120000,
+        "type": "fruit"
+    },
+    {
+        "id": 5,
+        "name": "Bananas",
+        "grams": 100000,
+        "type": "fruit"
+    }
+   ]
+   ```
+
+The data will use SQLITE storage.
+
+## 🧪 Running tests
+
+To run the tests you just need to run:
+
+```bash 
+$ vendor/bin/phpunit
 ```
 
-### 🧱 Building image
-```bash
-docker build -t tturkowski/fruits-and-vegetables -f docker/Dockerfile .
-```
+Expected Results:
 
-### 🏃‍♂️ Running container
-```bash
-docker run -it -w/app -v$(pwd):/app tturkowski/fruits-and-vegetables sh 
-```
+<img width="885" alt="Screenshot 2024-10-22 at 21 19 44" src="https://github.com/user-attachments/assets/bf476a8b-c51a-4692-8d74-d5a1ac7a7d30">
 
-### 🛂 Running tests
-```bash
-docker run -it -w/app -v$(pwd):/app tturkowski/fruits-and-vegetables bin/phpunit
-```
 
-### ⌨️ Run development server
-```bash
-docker run -it -w/app -v$(pwd):/app -p8080:8080 tturkowski/fruits-and-vegetables php -S 0.0.0.0:8080 -t /app/public
-# Open http://127.0.0.1:8080 in your browser
-```
