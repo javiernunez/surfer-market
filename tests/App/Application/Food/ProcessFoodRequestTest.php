@@ -3,6 +3,7 @@
 namespace App\Application\Food;
 
 use App\Domain\Food\FoodRepositoryInterface;
+use App\Domain\Misc\Enum\Unit;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
@@ -29,13 +30,15 @@ class ProcessFoodRequestTest extends TestCase
                 'id' => 1,
                 'name' => 'Apple',
                 'type' => 'fruit',
-                'grams' => 10
+                'quantity' => 10,
+                'unit' => 'g'
             ],
             [
                 'id' => 2,
                 'name' => 'Carrot',
                 'type' => 'vegetable',
-                'grams' => 5
+                'quantity' => 10,
+                'unit' => 'kg'
             ]
         ];
 

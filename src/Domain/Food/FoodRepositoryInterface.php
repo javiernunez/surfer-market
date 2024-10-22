@@ -6,7 +6,7 @@ interface FoodRepositoryInterface
 {
     public function save(Food $food): void;
 
-    public function getAll(): array;
+    public function getAll(): FoodCollection;
 
-    public function search(string $query): array;
+    public function search(array $filters): FoodCollection;
 }

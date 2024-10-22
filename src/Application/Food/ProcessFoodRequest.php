@@ -5,7 +5,7 @@ namespace App\Application\Food;
 use App\Domain\Food\FoodRepositoryInterface;
 use App\Domain\Food\Fruit\Fruit;
 use App\Domain\Food\Vegetable\Vegetable;
-use App\Domain\Global\Enum\Unit;
+use App\Domain\Misc\Enum\Unit;
 
 readonly class ProcessFoodRequest
 {

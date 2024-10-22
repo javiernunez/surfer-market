@@ -2,23 +2,36 @@
 
 namespace App\Domain\Food;
 
+use App\Domain\Food\Fruit\Fruit;
 
 class FoodCollection
 {
-    private array $items = [];
+    private array $foods = [];
+
+    public function __construct(array $foods = [])
+    {
+        foreach ($foods as $food) {
+            $this->add($food);
+        }
+    }
 
     public function add(Food $food): void
     {
-        $this->items[] = $food;
+        $this->foods[] = $food;
     }
 
-    public function remove(Food $food): void
+    public function all(): array
     {
-        unset($this->items[$food->getId()]);
+        return $this->foods;
     }
 
-    public function list(): array
+    public function count(): int
     {
-        return $this->items;
+        return count($this->foods);
+    }
+
+    public function toJson(): string
+    {
+        return json_encode($this->foods, JSON_PRETTY_PRINT);
     }
 }

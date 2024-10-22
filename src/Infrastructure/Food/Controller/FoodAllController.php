@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Food\Controller;
 
 use App\Domain\Food\FoodRepositoryInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,8 +17,12 @@ class FoodAllController extends AbstractController
     #[Route('/food', methods: ['GET'])]
     public function process(): Response
     {
-        $foodItems = $this->foodRepository->getAll();
+        try {
+            $foodItems = $this->foodRepository->getAll();
 
-        return new Response(json_encode($foodItems), Response::HTTP_OK, ['Content-Type' => 'application/json']);
+            return new Response($foodItems->toJson());
+        } catch (Exception $e) {
+            return new Response($e->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
     }
 }
