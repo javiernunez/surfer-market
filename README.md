@@ -17,7 +17,7 @@
    ```bash
    docker build -t surfer-market .
    ```
-2. Run and expose the container's port 80 in hots 8000
+2. Run and expose the container's port 80 in host port 8000
    ```bash
    docker run -d -p 8000:80 -v $(pwd):/app surfer-market
    ```
